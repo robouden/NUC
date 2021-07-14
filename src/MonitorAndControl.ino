@@ -1,5 +1,3 @@
-// Include the library
-
 
 #include <FanController.h>
 //set drivers 
