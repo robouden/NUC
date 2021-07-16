@@ -38,7 +38,6 @@
       9,
       10,
       11,
-      12,
       13,
       14,
       15,
@@ -73,8 +72,20 @@
   "project": {
     "files": [
       {
-        "name": "NUC fan controller.kicad_sch",
+        "name": "NUC fan controller.kicad_pcb",
         "open": false,
+        "window": {
+          "display": 0,
+          "maximized": true,
+          "pos_x": 0,
+          "pos_y": 215,
+          "size_x": 1280,
+          "size_y": 672
+        }
+      },
+      {
+        "name": "NUC fan controller.kicad_sch",
+        "open": true,
         "window": {
           "display": 0,
           "maximized": true,
