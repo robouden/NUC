@@ -10,6 +10,12 @@
 // please refer to: https://www.arduino.cc/en/Reference/AttachInterrupt
 #define SENSOR_PIN 21 //pin IO04
 
+//For other sensor pins:
+// tacho 1  pin 21
+// tacho 2  pin 33
+// tacho 3  pin 23
+// tacho 4  pin 19
+
 // Choose a threshold in milliseconds between readings.
 // A smaller value will give more updated results,
 // while a higher value will give more accurate and smooth readings
