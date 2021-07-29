@@ -1309,7 +1309,7 @@
     (property "Value" "4.7k" (id 1) (at 75.438 24.892 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder" (id 2) (at 74.803 26.67 90)
+    (property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" (id 2) (at 74.803 26.67 90)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "https://www.digikey.jp/product-detail/en/stackpole-electronics-inc/RMCF1206JT2K20/RMCF1206JT2K20TR-ND/1757504" (id 3) (at 73.025 26.67 0)
@@ -1731,7 +1731,7 @@
       (reference "M4") (unit 1) (value "Fan_4pin") (footprint "")
     )
     (path "/8f4b9555-69f8-4b08-8acd-ded96ac0fe27"
-      (reference "R1") (unit 1) (value "4.7k") (footprint "Resistor_SMD:R_1206_3216Metric_Pad1.42x1.75mm_HandSolder")
+      (reference "R1") (unit 1) (value "4.7k") (footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal")
     )
     (path "/c8915ca2-8fbf-4446-b87e-22dbc3cb724e"
       (reference "U1") (unit 1) (value "DS18B20U") (footprint "")

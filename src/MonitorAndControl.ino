@@ -33,6 +33,8 @@ FanController fan(SENSOR_PIN, SENSOR_THRESHOLD, PWM_PIN);
 void setup(void)
 {
   // start serial port
+ pinMode(21,INPUT_PULLUP);
+
   Serial.begin(115200);
   Serial.println("Fan Controller Library Test");
 
