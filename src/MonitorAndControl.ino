@@ -1,5 +1,8 @@
 
 #include <FanController.h>
+#include <OneWire.h>
+#include <DallasTemperature.h>
+
 //set drivers 
   #include <SPI.h>
   #include <Wire.h>
@@ -27,6 +30,16 @@
 // Initialize library
 FanController fan(SENSOR_PIN, SENSOR_THRESHOLD, PWM_PIN);
 
+// GPIO where the DS18B20 is connected to
+const int oneWireBus = 22;     
+
+// Setup a oneWire instance to communicate with any OneWire devices
+OneWire oneWire(oneWireBus);
+
+// Pass our oneWire reference to Dallas Temperature sensor 
+DallasTemperature sensors(&oneWire);
+
+
 /*
    The setup function. We only start the library here
 */
@@ -36,10 +49,12 @@ void setup(void)
  pinMode(21,INPUT_PULLUP);
 
   Serial.begin(115200);
-  Serial.println("Fan Controller Library Test");
 
-  // Start up the library
+  // Start up Fan library
   fan.begin();
+
+  // Start the DS18B20 sensor
+  sensors.begin();
 }
 
 /*
@@ -47,11 +62,20 @@ void setup(void)
 */
 void loop(void)
 {
+    //Call temperature sensors data
+  sensors.requestTemperatures(); 
+  float temperatureC = sensors.getTempCByIndex(0);
+
   // Call fan.getSpeed() to get fan RPM.
-  Serial.print("Current speed: ");
   unsigned int rpms = fan.getSpeed(); // Send the command to get RPM
+
+  //Serial print data  
+  Serial.print("Current speed: ");
   Serial.print(rpms);
-  Serial.println("RPM");
+  Serial.print("RPM");
+  Serial.print("\t");
+  Serial.print(temperatureC);
+  Serial.println("ºC");
 
   // Get new speed from Serial (0-100%)
   if (Serial.available() > 0) {
