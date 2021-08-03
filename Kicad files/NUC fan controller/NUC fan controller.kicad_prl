@@ -70,19 +70,6 @@
     "version": 3
   },
   "project": {
-    "files": [
-      {
-        "name": "NUC fan controller.kicad_sch",
-        "open": true,
-        "window": {
-          "display": 0,
-          "maximized": true,
-          "pos_x": 320,
-          "pos_y": 240,
-          "size_x": 1280,
-          "size_y": 456
-        }
-      }
-    ]
+    "files": []
   }
 }

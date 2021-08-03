@@ -24,6 +24,7 @@
 // while a higher value will give more accurate and smooth readings
 #define SENSOR_THRESHOLD 1000
 
+
 // PWM pin (4th on 4 pin fans)
 #define PWM_PIN 25 // pin IO33
 
@@ -39,19 +40,29 @@ OneWire oneWire(oneWireBus);
 // Pass our oneWire reference to Dallas Temperature sensor 
 DallasTemperature sensors(&oneWire);
 
+int speed =20;
+int adjustetemp=0;
 
 /*
    The setup function. We only start the library here
 */
 void setup(void)
 {
-  // start serial port
- pinMode(21,INPUT_PULLUP);
+  // setup Tacho pins.
+  pinMode(21,INPUT_PULLUP);
+  pinMode(33,INPUT_PULLUP);
+  pinMode(23,INPUT_PULLUP);
+  pinMode(19,INPUT_PULLUP);
 
+  // start serial port
   Serial.begin(115200);
 
   // Start up Fan library
   fan.begin();
+
+  // set min speed
+
+  fan.setDutyCycle(speed);
 
   // Start the DS18B20 sensor
   sensors.begin();
@@ -76,21 +87,35 @@ void loop(void)
   Serial.print("\t");
   Serial.print(temperatureC);
   Serial.println("ºC");
+  temperatureC =temperatureC+adjustetemp;
+  Serial.print("\t");
+  Serial.print("adjustetemp =");
+  Serial.print(temperatureC);
+  Serial.println("ºC");
+
+
+  //Map temperature form 30-70 to fanspeed PWM from 20 to 100
+  speed=map(temperatureC, 30,70,20,100);
+
+  // Set fan duty cycle
+  fan.setDutyCycle(speed);
 
   // Get new speed from Serial (0-100%)
   if (Serial.available() > 0) {
     // Parse speed
-    int input = Serial.parseInt();
+    int speed = Serial.parseInt();
 
-    // Constrain a 0-100 range
-    byte target = max(min(input, 100), 0);
+    // // Constrain a 0-100 range
+    // byte target = max(min(input, 100), 20);
 
     // Print obtained value
     Serial.print("Setting duty cycle: ");
-    Serial.println(target, DEC);
+    Serial.println(speed, DEC);
 
-    // Set fan duty cycle
-    fan.setDutyCycle(target);
+    // //Map temperature form 30-70 to fanspeed PWM from 20 to 100
+    // target=map(temperatureC, 30,70,20,100);
+    // // Set fan duty cycle
+    fan.setDutyCycle(speed);
 
     // Get duty cycle
     byte dutyCycle = fan.getDutyCycle();
@@ -98,7 +123,5 @@ void loop(void)
     Serial.println(dutyCycle, DEC);
   }
 
-  // Not really needed, just avoiding spamming the monitor,
-  // readings will be performed no faster than once every THRESHOLD ms anyway
   delay(1000);
 }
