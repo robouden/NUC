@@ -60,8 +60,7 @@ void setup(void)
   // Start up Fan library
   fan.begin();
 
-  // set min speed
-
+  // set min speed at startup
   fan.setDutyCycle(speed);
 
   // Start the DS18B20 sensor
@@ -69,7 +68,7 @@ void setup(void)
 }
 
 /*
-   Main function, get and show the temperature
+   Main function, get and show the temperature, duty cycle and speed
 */
 void loop(void)
 {
@@ -88,8 +87,10 @@ void loop(void)
   Serial.print("Real temperature:");
   Serial.print(temperatureC);
   Serial.print("ºC");
+
   //calculate adjusted temperature
   temperatureC =temperatureC+adjustetemp;
+
   //Print new data
   Serial.print("\t");
   Serial.print("Adjusted temperature:");
@@ -103,13 +104,10 @@ void loop(void)
   // Set fan duty cycle
   fan.setDutyCycle(speed);
 
-  // Get new speed from Serial (0-100%)
+  // Get new temperature from Serial (0-50 degree)
   if (Serial.available() > 0) {
-    // Parse speed
+    // Parse adjustment for temperature
     adjustetemp = Serial.parseInt();
-
-    // // Constrain a 0-100 range
-    // byte target = max(min(input, 100), 20);
 
     // Print obtained value
     Serial.print("Duty cycle: ");
