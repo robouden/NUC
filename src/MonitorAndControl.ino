@@ -85,11 +85,14 @@ void loop(void)
   Serial.print(rpms);
   Serial.print("RPM");
   Serial.print("\t");
+  Serial.print("Real temperature:");
   Serial.print(temperatureC);
-  Serial.println("ºC");
+  Serial.print("ºC");
+  //calculate adjusted temperature
   temperatureC =temperatureC+adjustetemp;
+  //Print new data
   Serial.print("\t");
-  Serial.print("adjustetemp =");
+  Serial.print("Adjusted temperature:");
   Serial.print(temperatureC);
   Serial.println("ºC");
 
@@ -103,24 +106,21 @@ void loop(void)
   // Get new speed from Serial (0-100%)
   if (Serial.available() > 0) {
     // Parse speed
-    int speed = Serial.parseInt();
+    adjustetemp = Serial.parseInt();
 
     // // Constrain a 0-100 range
     // byte target = max(min(input, 100), 20);
 
     // Print obtained value
-    Serial.print("Setting duty cycle: ");
-    Serial.println(speed, DEC);
-
-    // //Map temperature form 30-70 to fanspeed PWM from 20 to 100
-    // target=map(temperatureC, 30,70,20,100);
-    // // Set fan duty cycle
+    Serial.print("Duty cycle: ");
+    Serial.print(speed, DEC);
+    Serial.print("\t");
+    Serial.print("Adjusted temperature: ");
+    Serial.println(adjustetemp, DEC);
+    
+    // set new speed
     fan.setDutyCycle(speed);
 
-    // Get duty cycle
-    byte dutyCycle = fan.getDutyCycle();
-    Serial.print("Duty cycle: ");
-    Serial.println(dutyCycle, DEC);
   }
 
   delay(1000);
